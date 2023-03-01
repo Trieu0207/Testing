@@ -1,0 +1,116 @@
+{% extends 'layout/base.html' %}
+
+{% block js %}
+<script>
+   function check_pass(){
+	var pass = document.getElementById("pass").value;
+	var re_pass = document.getElementById("re_pass").value;
+	if(pass == re_pass){
+		document.getElementById("feedback").style.visibility = "hidden";
+		return true;
+	}
+	else document.getElementById("feedback").style.visibility = "visible";
+	return false;
+    }
+    function see_Repass(){
+        const temp = document.getElementById("re_pass").getAttribute('type');
+        document.getElementById("re_pass").setAttribute('type', temp === 'password' ? 'text': 'password');
+    }
+    function see_pass(){
+        const temp = document.getElementById("pass").getAttribute('type');
+        document.getElementById("pass").setAttribute('type', temp === 'password' ? 'text': 'password');
+    }
+
+    function hidden_ex(){
+    document.getElementById("ex").innerHTML = null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+{% endblock %}
+{% block content %}
+{% if ex %}
+<div class="alert alert-danger">
+    {{ ex }}
+</div>
+{% endif %}
+<div id="login" class="col-md-8" style="margin:auto">
+    <br>
+    <div class="h1 text-bg-primary" style="padding:1rem; text-align:center">Sign in</div>
+    <br>
+    <form method="post" action="{{url_for('user_login')}}">
+        <!-- nhập tên đăng nhập -->
+        <div class="form-floating mb-3 mt-3">
+            <input type="text" class="form-control" id="user_name" name="user_name"
+                   placeholder="Nhập Tên Đăng nhập"
+                   required onclick="hidden_ex()">
+            <label for="user_name">Tên đăng nhập
+                <pr class="text-danger">*</pr>
+            </label>
+            {% if ex and ex == "tên đăng nhập không tồn tại" %}
+            <p class="text-danger" id="ex">{{ex}}</p>
+            {% endif %}
+        </div>
+
+        <!-- nhập mật khẩu -->
+        <div class="form-floating input-group mb-3 mt-3">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Nhập Mật Khẩu"
+                   required onclick="hidden_ex()">
+            <label for="pass">Mật Khẩu
+                <pr class="text-danger">*</pr>
+            </label>
+            <button class="btn btn-light" type="button" onclick="see_pass()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-eye" viewBox="0 0 16 16">
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                </svg>
+            </button>
+        </div>
+        <div>
+            {% if ex == "mật khẩu không đúng" %}
+            <p id="warning" class="text-danger">
+                mật khẩu không chính xác </p>
+            {% endif %}
+        </div>
+        <!-- 2 column grid layout for inline styling -->
+        <div class="row mb-4">
+            <div class="col d-flex justify-content-center">
+                <!-- Checkbox -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked/>
+                    <label class="form-check-label" for="form2Example31"> Remember me </label>
+                </div>
+            </div>
+
+            <div class="col">
+                <!-- Simple link -->
+                <a href="#!">Forgot password?</a>
+            </div>
+        </div>
+        <div>
+            <p>bạn chưa có tài khoảng?<a href="{{url_for('user_register')}}">Đăng kí ngay</a></p>
+        </div>
+
+        <!-- Submit button -->
+        <div style="text-align: center;">
+            <input type="submit" value="Đăng nhập" class="btn btn-primary btn-block"
+                   style="padding:0.5rem 4rem"/>
+        </div>
+    </form>
+</div>
+<!-- Nav tabs -->
+
+{% endblock %}

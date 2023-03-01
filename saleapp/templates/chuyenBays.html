@@ -1,0 +1,195 @@
+{% extends 'layout/base.html' %}
+{% block css %}
+<link href="{{url_for('static', filename='css/chuyenBays.css')}}" , rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+{% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+{% endblock %}
+{% block content %}
+
+
+{% if ex %}
+<div class="alert alert-danger">
+    Chuyến bay chưa mở bán vé, bạn vui lòng quay lại sau
+</div>
+{% endif %}
+
+{% if chuyen %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <ul class="navbar-nav nav nav-pills">
+        <li class="nav-item active">
+            <a class="nav-link active" data-toggle="pill" href="#home">Tìm Vé</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#khuHoi">Khứ hồi</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#motChieu">Một chiều</a>
+        </li>
+    </ul>
+</nav>
+<div class="tab-content">
+    <div class="tab-pane container fade" id="home"></div>
+    <div class="tab-pane container fade" id="khuHoi">
+        <div class="wrapper bg-white">
+            <form action="#">
+                <div class="form-group border-bottom d-flex align-items-center justify-content-between flex-wrap">
+
+                </div>
+                <div class="form-group d-sm-flex margin">
+                    <div class="d-flex align-items-center flex-fill me-sm-1 my-sm-0 my-4 border-bottom position-relative">
+                        <div>
+                            <p style="padding-right: 5%; margin-bottom: 0;">From</p>
+                            <select class="form-select" aria-label="Default select example" id="op1">
+                                <option selected>Chọn điểm đi</option>
+                                {% for t in ten_diem_di %}
+                                <option value="{{t}}">{{t}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center flex-fill ms-sm-1 my-sm-0 my-4 border-bottom position-relative">
+                        <div>
+                            <p style="padding-right: 5%; margin-bottom: 0;">To</p>
+                            <select class="form-select" aria-label="Default select example" id="op2">
+                                <option selected>Chọn điểm đến</option>
+                                {% for t in ten_diem_den %}
+                                <option value="{{t}}">{{t}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-sm-flex margin">
+                    <div class="d-flex align-items-center flex-fill me-sm1 my-sm-0 border-bottom position-relative">
+                        <input type="date" required placeholder="Depart Date" class="form-control">
+                        <div class="label" id="depart"></div>
+                    </div>
+                    <div class="d-flex align-items-center flex-fill ms-sm-1 my-sm-0 my-4 border-bottom position-relative">
+                        <input type="date" required placeholder="Return Date" class="form-control">
+                        <div class="label" id="return"></div>
+                    </div>
+                </div>
+                <div class="form-group border-bottom d-flex align-items-center position-relative">
+                    <input type="text" required placeholder="Traveller(s)" class="form-control">
+                    <div class="label" id="psngr"></div>
+
+                </div>
+                <div class="form-group my-3">
+                    <div class="btn btn-primary rounded-0 d-flex justify-content-center text-center p-3">Search Flights
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="tab-pane container fade" id="motChieu">
+        <div class="wrapper bg-white">
+            <form action="#">
+                <div class="form-group border-bottom d-flex align-items-center justify-content-between flex-wrap">
+
+                </div>
+                <div class="form-group d-sm-flex margin">
+                    <div class="d-flex align-items-center flex-fill me-sm-1 my-sm-0 my-4 border-bottom position-relative">
+                        <div>
+                            <p style="padding-right: 5%; margin-bottom: 0;">From</p>
+                            <select class="form-select" aria-label="Default select example" id="op1">
+                                <option selected>Chọn điểm đi</option>
+                                {% for t in ten_diem_di %}
+                                <option value="{{t}}">{{t}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-fill ms-sm-1 my-sm-0 my-4 border-bottom position-relative">
+                        <div>
+                            <p style="padding-right: 5%; margin-bottom: 0;">To</p>
+                            <select class="form-select" aria-label="Default select example" id="op2">
+                                <option selected>Chọn điểm đến</option>
+                                {% for t in ten_diem_den %}
+                                <option value="{{t}}">{{t}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-sm-flex margin">
+                    <div class="d-flex align-items-center flex-fill me-sm1 my-sm-0 border-bottom position-relative">
+                        <input type="date" required placeholder="Depart Date" class="form-control">
+                        <div class="label" id="depart"></div>
+                    </div>
+                </div>
+                <div class="form-group border-bottom d-flex align-items-center position-relative">
+                    <input type="text" required placeholder="Traveller(s)" class="form-control">
+                    <div class="label" id="psngr"></div>
+
+                </div>
+                <div class="form-group my-3">
+                    <div class="btn btn-primary rounded-0 d-flex justify-content-center text-center p-3">Search Flights
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<form>
+    <div class="list-group">
+        {% if count_chuyen >= 1 %}
+        {% for temp in range(count_chuyen) %}
+        <a href="{{ url_for('ve_bay', chuyen_bay_id = chuyen[temp].id)}}" class="list-group-item list-group-item-action">
+            <div style="display:flex;">
+                <div class="col-md-2 col-sm-12">
+                    <p class="h5">{{tuyen.diem_di}}</p>
+                    {% if san_di %}
+                    <p>{{san_di}}</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-1 col-sm-12">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
+                         class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <p class="h5">{{tuyen.diem_den}}</p>
+                    {% if san_den %}
+                    <p>{{san_den}}</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <p>thời gian khởi hành:</p>
+                    {{lich_bay[temp].thoi_gian_khoi_hanh}}
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <p class="text-bg-primary" style="text-align:center">Vé loại 1</p>
+                    <p class="text-primary" style="text-align:center">
+                        {{ "{:,.1f}".format(ds_ve_normal[temp].gia_tien)}} VNĐ
+                    </p>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <p class="bg-warning" style="text-align:center">Vé loại 2</p>
+                    <p class="text-warning" style="text-align:center">
+                        {{ "{:,.1f}".format(ds_ve_vip[temp].gia_tien) }} VNĐ
+                    </p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+        {% endif %}
+    </div>
+</form>
+{% endif %}
+
+{% endblock %}
